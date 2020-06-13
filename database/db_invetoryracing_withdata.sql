@@ -29,9 +29,15 @@ CREATE TABLE IF NOT EXISTS `tbl_barang` (
   UNIQUE KEY `kd_barang` (`kd_barang`),
   KEY `FK_tbl_barang_tbl_kategori` (`kd_kategori`),
   CONSTRAINT `FK_tbl_barang_tbl_kategori` FOREIGN KEY (`kd_kategori`) REFERENCES `tbl_kategori` (`kd_kategori`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_barang: ~2 rows (approximately)
+/*!40000 ALTER TABLE `tbl_barang` DISABLE KEYS */;
+INSERT INTO `tbl_barang` (`id_barang`, `kd_barang`, `nm_barang`, `hrg_jual_khusus`, `hrg_jual_umum`, `satuan`, `stok_opname`, `kd_kategori`) VALUES
+	(1, 'P001', 'YamaTube', 50000, 65000, 'Botol', 7, 'K001');
+INSERT INTO `tbl_barang` (`id_barang`, `kd_barang`, `nm_barang`, `hrg_jual_khusus`, `hrg_jual_umum`, `satuan`, `stok_opname`, `kd_kategori`) VALUES
+	(2, 'P002', 'Busy', 18000, 20000, 'Buah', 2, 'K002');
+/*!40000 ALTER TABLE `tbl_barang` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_kategori
@@ -41,9 +47,15 @@ CREATE TABLE IF NOT EXISTS `tbl_kategori` (
   `nm_kategori` varchar(25) DEFAULT NULL COMMENT 'Nama Kategori',
   PRIMARY KEY (`id_kategori`),
   UNIQUE KEY `kd_kategori` (`kd_kategori`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_kategori: ~2 rows (approximately)
+/*!40000 ALTER TABLE `tbl_kategori` DISABLE KEYS */;
+INSERT INTO `tbl_kategori` (`id_kategori`, `kd_kategori`, `nm_kategori`) VALUES
+	(1, 'K001', 'Oli');
+INSERT INTO `tbl_kategori` (`id_kategori`, `kd_kategori`, `nm_kategori`) VALUES
+	(2, 'K002', 'Spare Parts');
+/*!40000 ALTER TABLE `tbl_kategori` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_pelanggan
@@ -57,9 +69,13 @@ CREATE TABLE IF NOT EXISTS `tbl_pelanggan` (
   `jenis` varchar(25) DEFAULT NULL COMMENT 'Jenis',
   PRIMARY KEY (`id_pelanggan`),
   UNIQUE KEY `kd_pelanggan` (`kd_pelanggan`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_pelanggan: ~1 rows (approximately)
+/*!40000 ALTER TABLE `tbl_pelanggan` DISABLE KEYS */;
+INSERT INTO `tbl_pelanggan` (`id_pelanggan`, `kd_pelanggan`, `nm_pelanggan`, `alamat_pelanggan`, `no_telp_pelanggan`, `keterangan_pelanggan`, `jenis`) VALUES
+	(1, 'P001', 'Eren', 'Paus', '081365', 'Testing', 'Umum');
+/*!40000 ALTER TABLE `tbl_pelanggan` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_pembelian
@@ -75,9 +91,13 @@ CREATE TABLE IF NOT EXISTS `tbl_pembelian` (
   KEY `FK_tbl_pembelian_tbl_supplier` (`kd_supplier`),
   CONSTRAINT `FK_tbl_pembelian_tbl_supplier` FOREIGN KEY (`kd_supplier`) REFERENCES `tbl_supplier` (`kd_supplier`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_pembelian_tbl_user` FOREIGN KEY (`kd_user`) REFERENCES `tbl_user` (`kd_user`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_pembelian: ~1 rows (approximately)
+/*!40000 ALTER TABLE `tbl_pembelian` DISABLE KEYS */;
+INSERT INTO `tbl_pembelian` (`id_pembelian`, `no_pembelian`, `tgl_pembelian`, `kd_supplier`, `kd_user`) VALUES
+	(1, 'B001', '2020-06-13', 'S01', 'U01');
+/*!40000 ALTER TABLE `tbl_pembelian` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_pembelian_barang
@@ -92,9 +112,15 @@ CREATE TABLE IF NOT EXISTS `tbl_pembelian_barang` (
   KEY `FK__tbl_barang` (`kd_barang`),
   CONSTRAINT `FK__tbl_barang` FOREIGN KEY (`kd_barang`) REFERENCES `tbl_barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK__tbl_pembelian` FOREIGN KEY (`no_pembelian`) REFERENCES `tbl_pembelian` (`no_pembelian`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_pembelian_barang: ~2 rows (approximately)
+/*!40000 ALTER TABLE `tbl_pembelian_barang` DISABLE KEYS */;
+INSERT INTO `tbl_pembelian_barang` (`id_pembelian_barang`, `no_pembelian`, `kd_barang`, `harga_beli`, `jumlah`) VALUES
+	(17, 'B001', 'P001', 50000, 7);
+INSERT INTO `tbl_pembelian_barang` (`id_pembelian_barang`, `no_pembelian`, `kd_barang`, `harga_beli`, `jumlah`) VALUES
+	(19, 'B001', 'P002', 56000, 4);
+/*!40000 ALTER TABLE `tbl_pembelian_barang` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_penjualan
@@ -110,9 +136,13 @@ CREATE TABLE IF NOT EXISTS `tbl_penjualan` (
   KEY `FK_tbl_penjualan_tbl_user` (`kd_user`),
   CONSTRAINT `FK_tbl_penjualan_tbl_pelanggan` FOREIGN KEY (`kd_pelanggan`) REFERENCES `tbl_pelanggan` (`kd_pelanggan`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_penjualan_tbl_user` FOREIGN KEY (`kd_user`) REFERENCES `tbl_user` (`kd_user`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_penjualan: ~0 rows (approximately)
+/*!40000 ALTER TABLE `tbl_penjualan` DISABLE KEYS */;
+INSERT INTO `tbl_penjualan` (`id_penjualan`, `no_penjualan`, `tgl_penjualan`, `kd_user`, `kd_pelanggan`) VALUES
+	(1, 'J001', '2020-06-14', 'U01', 'P001');
+/*!40000 ALTER TABLE `tbl_penjualan` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_penjualan_barang
@@ -127,9 +157,13 @@ CREATE TABLE IF NOT EXISTS `tbl_penjualan_barang` (
   KEY `FK_tbl_penjualan_barang_tbl_barang` (`kd_barang`),
   CONSTRAINT `FK_tbl_penjualan_barang_tbl_barang` FOREIGN KEY (`kd_barang`) REFERENCES `tbl_barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_penjualan_barang_tbl_penjualan` FOREIGN KEY (`no_penjualan`) REFERENCES `tbl_penjualan` (`no_penjualan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_penjualan_barang: ~0 rows (approximately)
+/*!40000 ALTER TABLE `tbl_penjualan_barang` DISABLE KEYS */;
+INSERT INTO `tbl_penjualan_barang` (`id_penjualan_barang`, `no_penjualan`, `kd_barang`, `harga_jual`, `jumlah`) VALUES
+	(14, 'J001', 'P002', 20000, 2);
+/*!40000 ALTER TABLE `tbl_penjualan_barang` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_supplier
@@ -142,9 +176,15 @@ CREATE TABLE IF NOT EXISTS `tbl_supplier` (
   `keterangan` varchar(100) DEFAULT NULL COMMENT 'Keterangan',
   PRIMARY KEY (`id_supplier`),
   UNIQUE KEY `kd_supplier` (`kd_supplier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_supplier: ~1 rows (approximately)
+/*!40000 ALTER TABLE `tbl_supplier` DISABLE KEYS */;
+INSERT INTO `tbl_supplier` (`id_supplier`, `kd_supplier`, `nm_supplier`, `alamat_supplier`, `no_telp_supplier`, `keterangan`) VALUES
+	(1, 'S01', 'Yamaha Pekanbaru', 'Jl. SM Yamin No. 10', '076112345', 'Test');
+INSERT INTO `tbl_supplier` (`id_supplier`, `kd_supplier`, `nm_supplier`, `alamat_supplier`, `no_telp_supplier`, `keterangan`) VALUES
+	(2, 'S02', 'Honda Pekanbaru', 'Jl. SM Yamin No. 10', '076112345', 'Test');
+/*!40000 ALTER TABLE `tbl_supplier` ENABLE KEYS */;
 
 
 -- Dumping structure for table db_inventoryracing.tbl_user
@@ -157,9 +197,17 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `kd_user` (`kd_user`),
   UNIQUE KEY `nm_user` (`nm_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table db_inventoryracing.tbl_user: ~3 rows (approximately)
+/*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
+INSERT INTO `tbl_user` (`id_user`, `kd_user`, `nm_user`, `username`, `password`) VALUES
+	(1, 'U01', 'Tank', 'admin', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `tbl_user` (`id_user`, `kd_user`, `nm_user`, `username`, `password`) VALUES
+	(2, 'U02', 'Marskman', 'mm', 'b3cd915d758008bd19d0f2428fbb354a');
+INSERT INTO `tbl_user` (`id_user`, `kd_user`, `nm_user`, `username`, `password`) VALUES
+	(3, 'U03', 'Mage', 'mage', '9a519a0f7d29f1ffa549fada8b667b02');
+/*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
