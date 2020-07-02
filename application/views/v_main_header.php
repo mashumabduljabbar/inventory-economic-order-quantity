@@ -47,6 +47,7 @@
   $barang = "";
   $pembelian = "";
   $penjualan = "";
+  $hitungeoq = "";
   
   if($geturl1=="admin" && ($geturl2=="" or strpos($geturl2, "index")!== FALSE)){
 	  $beranda = "active";
@@ -71,6 +72,9 @@
   }
   if(strpos($geturl1, "penjualan")!== FALSE){
 	  $penjualan = "active";
+  }
+  if(strpos($geturl1, "hitungeoq")!== FALSE){
+	  $hitungeoq = "active";
   }
 ?>
 <div id="layoutSidenav">
@@ -102,6 +106,9 @@
 							<a class="nav-link <?php echo $penjualan;?>" href="<?php echo base_url(); ?>penjualan"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                                 Penjualan</a>
+							<a class="nav-link <?php echo $hitungeoq;?>" href="<?php echo base_url(); ?>hitungeoq"
+                                ><div class="sb-nav-link-icon"><i class="fas fa-dot-circle"></i></div>
+                                Hitung EOQ</a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
