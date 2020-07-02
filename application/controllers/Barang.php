@@ -27,6 +27,24 @@ class Barang extends CI_Controller {
 		echo json_encode($tbl_barang);
     }
 	
+	public function jsonbarangwhere()
+    {
+		$kd_barang = $_POST['kd_barang'];
+		$tbl_barang = $this->db->query("SELECT (select count(*) from tbl_pembelian c
+left join tbl_pembelian_barang d 
+on c.no_pembelian=d.no_pembelian
+where d.kd_barang='$kd_barang') as total_order,
+(select sum(jumlah) from tbl_pembelian_barang d
+where d.kd_barang='$kd_barang') as jumlah_keseluruhan,
+(select sum(d.harga_beli*d.jumlah) from tbl_pembelian_barang d
+where d.kd_barang='$kd_barang') as total_harga,
+(select round(sum(d.harga_beli*d.jumlah)/sum(jumlah),2) from tbl_pembelian_barang d
+where d.kd_barang='$kd_barang') as harga_mean,
+(select a.nm_barang from tbl_barang a where a.kd_barang='$kd_barang') as nm_barang
+")->result_array();
+		echo json_encode($tbl_barang);
+    }
+	
 	public function get_data_master_barang()
 	{
 		$table = "
@@ -55,7 +73,38 @@ class Barang extends CI_Controller {
         echo json_encode(
             SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
         );
-	}	
+	}
+	
+	public function get_data_master_eoq($kd_barang="")
+	{
+		$table = "
+        (
+          select (@cnt := @cnt + 1) AS id, 
+			a.jumlah, a.id_pembelian_barang, round(a.jumlah/10,2) as mean
+			from tbl_pembelian_barang a 
+			CROSS JOIN (SELECT @cnt := 0) AS dummy
+			where a.kd_barang='$kd_barang' order by a.id_pembelian_barang DESC
+			LIMIT 10
+        )temp";
+		
+        $primaryKey = 'id_pembelian_barang';
+        $columns = array(
+        array( 'db' => 'jumlah',     'dt' => 'jumlah' ),
+        array( 'db' => 'mean',     'dt' => 'mean' ),
+        array( 'db' => 'id',     'dt' => 'id' )
+        );
+
+        $sql_details = array(
+            'user' => $this->db->username,
+            'pass' => $this->db->password,
+            'db'   => $this->db->database,
+            'host' => $this->db->hostname
+        );
+        echo json_encode(
+            SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
+        );
+	}
+	
 	public function barang_tambah()
     {
 		$this->load->view("v_main_header");
