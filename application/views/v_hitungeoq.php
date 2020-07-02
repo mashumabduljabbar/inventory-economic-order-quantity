@@ -116,6 +116,19 @@
 							  </table>
                            </div>
 							<div class="card-body">	
+							<input id="total_cost_1" type="hidden">
+							<input id="total_cost_2" type="hidden">
+							<input id="total_cost_3" type="hidden">
+							<input id="total_cost_4" type="hidden">
+							<input id="total_cost_5" type="hidden">
+							<input id="total_cost_6" type="hidden">
+							<input id="total_cost_7" type="hidden">
+							<input id="total_cost_8" type="hidden">
+							<input id="total_cost_9" type="hidden">
+							<input id="total_cost_10" type="hidden">
+							 <input id="sorting" type="button" value="Cost Min" class="btn btn-info" />
+							</div>
+							<div class="card-body">	
 								<table class="table table-bordered table-striped">
 									<tr>
 										<th>TOTAL COST MIN. (pemesanan unit yang paling optimal pada keseluruhan Order)</th>
@@ -239,11 +252,34 @@ $(document).ready(function() {
 						var total_ordering_cost = jumlah_keseluruhan_value/row.jumlah*biaya_pemesanan;
 						
 						var total_cost = total_holding_cost+total_ordering_cost;
+						
+						$("#total_cost_"+data).val(total_cost);
+						
 						return numberCommas(total_cost);
+						
 					 }
 					},
 				],
 			});
+	});
+	
+	
+	$("#sorting").click(function(){		
+		var a = $("#total_cost_1").val();
+		var b = $("#total_cost_2").val();
+		var c = $("#total_cost_3").val();
+		var d = $("#total_cost_4").val();
+		var e = $("#total_cost_5").val();
+		var f = $("#total_cost_6").val();
+		var g = $("#total_cost_7").val();
+		var h = $("#total_cost_8").val();
+		var i = $("#total_cost_9").val();
+		var j = $("#total_cost_10").val();
+		var arrayan = [a, b, c, d, e, f, g, h, i, j];
+		var sort_arrayan = arrayan.sort((a,b)=>a-b);
+		var costmin = sort_arrayan[0];
+		var costmin = numberCommas(costmin); 
+		$("#costmin").html(costmin);
 	});
 	
 });
